@@ -1,0 +1,48 @@
+<html>
+  <body>
+    <canvas
+      id="myCanvas"
+      width="1920"
+      height="1080"
+      style="background-color: black;"
+    ></canvas>
+    <script>
+      let image = new Image();
+      image.src = "https://shp.qpic.cn/ishow/2735120110/1638324367_84828260_10377_sProdImgNo_6.jpg/0";
+      let canvas = document.getElementById("myCanvas");
+      let context = canvas.getContext("2d");
+      let boxWidth, boxHeight;
+      let rows = 10,
+        columns = 20,
+        counter = 0;
+ 
+      image.onload = function () {
+        boxWidth = image.width / columns;
+        boxHeight = image.height / rows;
+        requestAnimationFrame(animate);
+      };
+ 
+      function animate() {
+        let x = Math.floor(Math.random() * columns);
+        let y = Math.floor(Math.random() * rows);
+        context.drawImage(
+          image,
+          x * boxWidth, // 横坐标起始位置
+          y * boxHeight, // 纵坐标起始位置
+          boxWidth, // 图像的宽         
+          boxHeight, // 图像的高
+          x * boxWidth, // 在画布上放置图像的 x 坐标位置
+          y * boxHeight, // 在画布上放置图像的 y 坐标位置
+          boxWidth, // 要使用的图像的宽度
+          boxHeight // 要使用的图像的高度        
+        );
+        counter++;
+        if (counter > columns * rows * 0.9) {
+          context.drawImage(image, 0, 0);
+        } else {
+          requestAnimationFrame(animate);
+        }
+      }
+    </script>
+  </body>
+</html>
